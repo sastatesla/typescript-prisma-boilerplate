@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 7
+    },
+    "auditLog": "/var/www/html/fs/fsi-datastream-nexus-service/logFiles/.faf492dd0777f14b67bca28ea49dd5b55addfb6d-audit.json",
+    "files": [
+        {
+            "date": 1726548080541,
+            "name": "/var/www/html/fs/fsi-datastream-nexus-service/logFiles/application-2024-09-17.log",
+            "hash": "0c2cc0e1475375fd40c455da6ab1be291b88c89e50caceabd8f56430ec949d82"
+        }
+    ],
+    "hashType": "sha256"
+}
