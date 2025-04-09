@@ -10,4 +10,3 @@ module.exports = {
       'subject-empty': [2, 'never'],
     },
   };
-  

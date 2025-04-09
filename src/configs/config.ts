@@ -2,11 +2,16 @@ import dotenv from 'dotenv';
 import path from 'path';
 import Joi from 'joi';
 
-dotenv.config({ path: path.join(process.cwd(), '.env') });
+const NODE_ENV = process.env.NODE_ENV || 'development';
+
+dotenv.config({ path: path.join(process.cwd(), `.env.${NODE_ENV}`) });
 
 const envVarsSchema = Joi.object()
   .keys({
-    NODE_ENV: Joi.string().valid('production', 'development', 'test').required(),
+    NODE_ENV: Joi.string()
+      .valid('production', 'development', 'test')
+      .required(),
+
     PORT: Joi.number().default(3000),
 
     // JWT
@@ -17,11 +22,11 @@ const envVarsSchema = Joi.object()
     JWT_VERIFY_EMAIL_EXPIRATION_MINUTES: Joi.number().default(10),
 
     // Email
-    SMTP_HOST: Joi.string(),
-    SMTP_PORT: Joi.number(),
-    SMTP_USERNAME: Joi.string(),
-    SMTP_PASSWORD: Joi.string(),
-    EMAIL_FROM: Joi.string(),
+    SMTP_HOST: Joi.string().allow(''),
+    SMTP_PORT: Joi.number().allow(null),
+    SMTP_USERNAME: Joi.string().allow(''),
+    SMTP_PASSWORD: Joi.string().allow(''),
+    EMAIL_FROM: Joi.string().email().allow(''),
 
     // Database
     DB_USER: Joi.string().required(),
@@ -66,8 +71,7 @@ const config = {
     password: envVars.DB_PASSWORD,
     host: envVars.DB_HOST,
     port: envVars.DB_PORT,
-    mainDbName: envVars.MAIN_DB_NAME,
-
+    mainDbName: envVars.MAIN_DB_NAME
   }
 };
 
