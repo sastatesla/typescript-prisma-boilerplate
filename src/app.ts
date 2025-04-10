@@ -5,7 +5,7 @@ import cors from "cors"
 import passport from "passport"
 import httpStatus from "http-status"
 import config from "./configs/config"
-import morgan from "./configs/morgan"
+// import morgan from "./configs/morgan"
 import xss from "./middlewares/xss"
 import {jwtStrategy} from "./configs/passport"
 import {authLimiter} from "./middlewares/rateLimiter"
@@ -30,10 +30,10 @@ const providersFactory = new ProvidersFactory()
 	}
 })()
 
-if (config.env !== "test") {
-	app.use(morgan.successHandler)
-	app.use(morgan.errorHandler)
-}
+// if (config.env !== "test") {
+// 	app.use(morgan.successHandler)
+// 	app.use(morgan.errorHandler)
+// }
 
 // set security HTTP headers
 app.use(helmet())

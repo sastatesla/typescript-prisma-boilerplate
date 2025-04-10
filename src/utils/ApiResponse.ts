@@ -1,8 +1,7 @@
-import {Request, Response} from "express"
+import {Response} from "express"
 import {ProvidersFactory} from "../utils/ProvidersFactory"
 
 type QueryFunction = (text: string, params?: any[]) => Promise<any>
-type ReleaseFunction = () => void
 
 export class ApiResponse {
 	private res
@@ -13,26 +12,18 @@ export class ApiResponse {
 	public async APITransactionBegin(slug?: string) {
 		slug = process.env.DB_NAME as string
 		const providersFactory = new ProvidersFactory()
-		const {query, release} = await providersFactory.transaction(slug)
+		const {query} = await providersFactory.transaction(slug)
 
-		query("BEGIN")
-		return {query, release}
+		await query("BEGIN")
+		return {query}
 	}
 
-	public async APITransactionSucceed(
-		query: QueryFunction,
-		release: ReleaseFunction
-	) {
+	public async APITransactionSucceed(query: QueryFunction) {
 		await query("COMMIT")
-		release()
 	}
 
-	public async APITransactionFailed(
-		query: QueryFunction,
-		release: ReleaseFunction
-	) {
+	public async APITransactionFailed(query: QueryFunction) {
 		await query("ROLLBACK")
-		release()
 	}
 
 	public async successResponse(data: any) {
