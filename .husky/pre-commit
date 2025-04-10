@@ -1,1 +1,2 @@
-npm test
+npx --no-install prettier --write .
+git add .

@@ -9,10 +9,9 @@ const eventEmitter = new EventEmitter()
 eventEmitter.on("logging", (msg: any) => {
 	if (process.env.DEBUG === "true") {
 		/* eslint-disable */
-		console.log(`\x1b[33m\x1b[2m[DEBUG]\x1b[0m \x1b[2m${msg}\x1b[0m`);
+		console.log(`\x1b[33m\x1b[2m[DEBUG]\x1b[0m \x1b[2m${msg}\x1b[0m`)
 		/* eslint-enable */
-	  }
-	  
+	}
 
 	const data: string = `
         CUSTOM LOGGING AT ${moment()
