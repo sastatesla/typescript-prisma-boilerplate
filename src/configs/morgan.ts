@@ -1,24 +1,33 @@
-// import {Response} from "express"
-// import morgan from "morgan"
-// import config from "./config"
+import {Response} from "express"
+import morgan from "morgan"
+import config from "./config"
+import eventEmitter from "../utils/logging"
 
-// morgan.token("message", (req, res: Response) => res.locals.errorMessage || "")
+// Add custom token for optional error messages
+morgan.token("message", (req, res: Response) => res.locals.errorMessage || "")
 
-// const getIpFormat = () => (config.env === "production" ? ":remote-addr - " : "")
-// const successResponseFormat = `${getIpFormat()}:method :url :status - :response-time ms`
-// const errorResponseFormat = `${getIpFormat()}:method :url :status - :response-time ms - message: :message`
+// Choose IP format for production/dev
+const getIpFormat = () => (config.env === "production" ? ":remote-addr - " : "")
 
-// export const successHandler = morgan(successResponseFormat, {
-// 	skip: (req, res) => res.statusCode >= 400,
-// 	stream: {write: (message) => logger.info(message.trim())}
-// })
+// Define formats
+const successFormat = `${getIpFormat()}:method :url :status - :response-time ms`
+const errorFormat = `${getIpFormat()}:method :url :status - :response-time ms - message: :message`
 
-// export const errorHandler = morgan(errorResponseFormat, {
-// 	skip: (req, res) => res.statusCode < 400,
-// 	stream: {write: (message) => logger.error(message.trim())}
-// })
+const successHandler = morgan(successFormat, {
+	skip: (req, res) => res.statusCode >= 400,
+	stream: {
+		write: (message) => eventEmitter.emit("logging", message.trim())
+	}
+})
 
-// export default {
-// 	successHandler,
-// 	errorHandler
-// }
+const errorHandler = morgan(errorFormat, {
+	skip: (req, res) => res.statusCode < 400,
+	stream: {
+		write: (message) => eventEmitter.emit("logging", message.trim())
+	}
+})
+
+export default {
+	successHandler,
+	errorHandler
+}

@@ -51,6 +51,7 @@
 	},
 	"dependencies": {
 		"@prisma/client": "^6.5.0",
+		"axios": "^1.8.4",
 		"bcryptjs": "^3.0.2",
 		"compression": "^1.8.0",
 		"cors": "^2.8.5",

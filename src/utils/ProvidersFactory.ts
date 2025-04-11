@@ -1,7 +1,6 @@
 import {PrismaClient} from "@prisma/client"
 import eventEmitter from "./logging"
 import config from "../configs/config"
-
 type QueryFunction = (query: string) => Promise<any>
 type ReleaseFunction = () => void
 

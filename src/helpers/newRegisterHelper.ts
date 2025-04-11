@@ -8,10 +8,10 @@ import {
 	DEFAULT_PHONE_NUMBERS,
 	MESSAGE_TEMPLATE,
 	OTP_RESPONSE_SLUGS
-} from "./constants"
+} from "../utils/constants"
 import AxiosHelper from "./axiosHelper"
-import eventEmitter from "../libs/logging"
-import {ProvidersFactory} from "../libs/ProvidersFactory"
+import eventEmitter from "../utils/logging"
+import {ProvidersFactory} from "../utils/ProvidersFactory"
 import {Roles} from "../types/common"
 
 /* load models */

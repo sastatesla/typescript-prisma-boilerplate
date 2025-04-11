@@ -52,8 +52,8 @@ const authService = {
 			const newAccessToken = generateToken({userId: user.id})
 
 			return {accessToken: newAccessToken}
-		} catch (error) {
-			throw new Error("Token expired or invalid")
+		} catch (error: any) {
+			throw new Error(error)
 		}
 	}
 }

@@ -2,7 +2,7 @@ import {Server} from "http"
 import app from "./app"
 import prisma from "./client"
 import config from "./configs/config"
-import logger from "./configs/logger"
+import logger from "./configs/morgonLogger"
 
 let server: Server
 prisma.$connect().then(() => {

@@ -1,5 +1,5 @@
 import axios from "axios"
-import eventEmitter from "../libs/logging"
+import eventEmitter from "../utils/logging"
 
 class AxiosHelper {
 	private baseUrl: string
